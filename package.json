@@ -1,0 +1,23 @@
+{
+  "name": "concord",
+  "version": "0.0.0",
+  "description": "Self hosted discord-like",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mle-moni/concord.git"
+  },
+  "author": "LE MONIES DE SAGAZAN Mayeul, VIDAL Corentin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mle-moni/concord/issues"
+  },
+  "homepage": "https://github.com/mle-moni/concord#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^4.1.2"
+  }
+}
