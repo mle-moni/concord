@@ -8,10 +8,23 @@
 </head>
 
 <body>
-	<h1>
-		Coucou :)
-	</h1>
+	<!-- my video -->
+	<video id="main-video" playsinline autoplay muted></video>
+	<button onclick="joinRoom()">Join room</button>
+	<section class="select">
+		<label for="audio-source">Audio device : </label>
+		<select id="audio-source"></select>
+	</section>
+
+	<section class="select">
+		<label for="video-source">Video device : </label>
+		<select id="video-source"></select>
+	</section>
+	<!-- peers' videos will be created inside this div -->
+	<div id="peers-videos"></div>
+
 	<script src="/socket.io/socket.io.js"></script>
+	<script src="./Peers.js"></script>
 	<script src="./main.js"></script>
 </body>
 
