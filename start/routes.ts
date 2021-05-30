@@ -23,3 +23,15 @@ import Route from '@ioc:Adonis/Core/Route'
 Route.get('/', async () => {
 	return { concord: 'Discord like, self hosted solution' }
 })
+
+// login/logout
+Route.group(() => {
+	Route.post('/login', 'AuthController.login')
+	Route.post('/logout', 'AuthController.logout').middleware('auth')
+	Route.get('/me', 'AuthController.me').middleware('auth')
+})
+
+Route.resource('/users', 'UsersController').apiOnly().middleware({
+	update: 'auth',
+	destroy: 'auth',
+})
