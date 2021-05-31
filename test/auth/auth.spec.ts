@@ -45,8 +45,9 @@ test.group('login', (group) => {
 			.post('/login')
 			.send({ email, password })
 			.expect(200)
-		assert.exists(body?.token)
-		token = <Token>body
+		assert.exists(body?.token?.token)
+		assert.exists(body?.user)
+		token = <Token>body.token
 		await supertest(BASE_URL)
 			.delete(`/users/${user?.id}`)
 			.set('Authorization', `Bearer ${token.token}`)
@@ -79,7 +80,7 @@ test.group('logout', (group) => {
 			.post('/login')
 			.send({ email, password })
 			.expect(200)
-		token = <Token>body
+		token = <Token>body.token
 		const res = await supertest(BASE_URL)
 			.post('/logout')
 			.set('Authorization', `Bearer ${token.token}`)
@@ -114,7 +115,7 @@ test.group('me', (group) => {
 	test('GET /me good token', async (assert) => {
 		let token: Token
 		const res = await supertest(BASE_URL).post('/login').send({ email, password }).expect(200)
-		token = <Token>res.body
+		token = <Token>res.body.token
 		const { body } = await supertest(BASE_URL)
 			.get('/me')
 			.set('Authorization', `Bearer ${token.token}`)

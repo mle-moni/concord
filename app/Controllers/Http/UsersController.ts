@@ -7,7 +7,7 @@ import { messagesObj } from 'App/Helpers/Messages'
 export default class UsersController {
 	public async index() {
 		const users = await User.all()
-		return users.map((user) => user.onlyPublicData())
+		return users.map((user) => user.publicData())
 	}
 
 	public async store({ request, response, auth }: HttpContextContract) {
@@ -31,12 +31,12 @@ export default class UsersController {
 		const token = await auth.use('api').generate(user, {
 			expiresIn: '7days',
 		})
-		response.created({ email: user.email, token })
+		response.created({ user: user.privateData(), token })
 	}
 
 	public async show({ params }: HttpContextContract) {
 		const user = await User.findOrFail(params.id)
-		return user.onlyPublicData()
+		return user.publicData()
 	}
 
 	public async update({ request, response, params, auth }: HttpContextContract) {

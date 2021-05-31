@@ -7,7 +7,7 @@ export default class AuthController {
 		const email = request.input('email') || ''
 		const password = request.input('password') || ''
 		const token = await auth.use('api').attempt(email, password)
-		return token
+		return { user: auth.user!.privateData(), token }
 	}
 
 	public async logout({ auth }: HttpContextContract) {
@@ -16,6 +16,6 @@ export default class AuthController {
 	}
 
 	public async me({ auth }: HttpContextContract) {
-		return auth.user
+		return auth.user?.privateData()
 	}
 }

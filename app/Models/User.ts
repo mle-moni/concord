@@ -7,6 +7,12 @@ interface UserPublicData {
 	username: string
 }
 
+interface UserPrivateData {
+	id: number
+	email: string
+	username: string
+}
+
 export default class User extends BaseModel {
 	@column({ isPrimary: true })
 	public id: number
@@ -36,9 +42,16 @@ export default class User extends BaseModel {
 		}
 	}
 
-	public onlyPublicData(): UserPublicData {
+	public publicData(): UserPublicData {
 		return {
 			id: this.id,
+			username: this.username,
+		}
+	}
+	public privateData(): UserPrivateData {
+		return {
+			id: this.id,
+			email: this.email,
 			username: this.username,
 		}
 	}

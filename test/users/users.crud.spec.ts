@@ -103,6 +103,9 @@ test.group('Users CRUD tests', (group) => {
 			})
 			.expect(201)
 		assert.exists(body.token?.token)
+		assert.exists(body.user?.id)
+		assert.exists(body.user?.email)
+		assert.exists(body.user?.username)
 		auth.token = body.token.token
 		auth.id = (await User.firstOrFail()).id
 	})
