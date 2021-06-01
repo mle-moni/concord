@@ -1,8 +1,14 @@
 import { ApplicationContract } from '@ioc:Adonis/Core/Application'
 
+import { setGlobals } from 'App/Helpers/Globals'
+
 export default class AppProvider {
 	constructor(protected app: ApplicationContract) {
-		// constructor xd
+		let tokenLifeTime = '7days'
+		if (app.env.get('NODE_ENV') === 'testing') {
+			tokenLifeTime = '10secs'
+		}
+		setGlobals('token_life_time', tokenLifeTime)
 	}
 
 	public register() {

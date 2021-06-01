@@ -3,6 +3,7 @@ import { schema, rules } from '@ioc:Adonis/Core/Validator'
 import User from 'App/Models/User'
 
 import { messagesObj } from 'App/Helpers/Messages'
+import { getGlobals } from 'App/Helpers/Globals'
 
 export default class UsersController {
 	public async index() {
@@ -29,7 +30,7 @@ export default class UsersController {
 		user.username = userDetails.username
 		await user.save()
 		const token = await auth.use('api').generate(user, {
-			expiresIn: '7days',
+			expiresIn: getGlobals('token_life_time'),
 		})
 		response.created({ user: user.privateData(), token })
 	}
