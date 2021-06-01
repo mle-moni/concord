@@ -1,0 +1,30 @@
+version: "3.1"
+services:
+    redis:
+        image: redis
+        ports:
+            - "6380:6379"
+    mariadb:
+        image: mariadb
+        restart: always
+        ports:
+            - "5555:3306"
+        environment:
+            MARIADB_DATABASE: concord
+            MARIADB_ROOT_PASSWORD: password
+        volumes:
+            - ./node_modules/.db:/var/lib/mysql
+            - ./database/docker-init:/docker-entrypoint-initdb.d
+    concord-api:
+        user: "node"
+        image: "node:16-alpine"
+        container_name: "concord-api"
+        working_dir: /home/node/app
+        volumes:
+            - ./:/home/node/app
+        depends_on:
+            - mariadb
+            - redis
+        command: "npm run idev"
+        ports:
+            - "7890:7890"

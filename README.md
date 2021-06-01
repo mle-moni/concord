@@ -6,7 +6,30 @@ Self hosted discord-like (work in progress)
 ```bash
 git clone https://github.com/mle-moni/concord && cd concord
 ```
-- install mysql / mariadb
+
+### Docker
+##### running dev server:
+```bash
+docker-compose up 
+```
+
+##### get root shell to container
+```bash
+docker exec -it -u 0 concord-api /bin/sh
+```
+
+##### run tests inside container
+```bash
+docker exec -it -u 0 concord-api npm run tests
+```
+
+### Manual install
+- install npm deps:
+```bash
+npm i
+```
+- install redis
+- install mysql or mariadb
 - create DBs:
 ```bash
 # open mysql command prompt
@@ -23,10 +46,10 @@ cp .env.example .env
 - edit .env file
 - test your installation: 
 ```bash
-node -r @adonisjs/assembler/build/register japaFile.ts
+npm run tests
 ```
-- (you can alias the test command, personnally I aliased it to ado-tests)
 - if tests are OK you can migrate your database: 
+> :warning: **Don't skip this step, or it won't work!**
 ```bash
 node ace migration:run
 ```

@@ -7,7 +7,10 @@
 		"start": "node server.js",
 		"dev": "node ace serve --watch",
 		"lint": "eslint . --ext=.ts",
-		"format": "prettier --write ."
+		"format": "prettier --write .",
+		"tests": "node -r @adonisjs/assembler/build/register japaFile.ts",
+		"dotenv": "stat .env > /dev/null 2> /dev/null || cp .env.example .env",
+		"idev": "npm i && npm run dotenv && node ace migration:run && npm run dev"
 	},
 	"devDependencies": {
 		"@adonisjs/assembler": "^5.3.0",
