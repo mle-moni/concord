@@ -9,8 +9,6 @@
 		"lint": "eslint . --ext=.ts",
 		"format": "prettier --write .",
 		"tests": "node -r @adonisjs/assembler/build/register japaFile.ts",
-		"dotenv": "stat .env > /dev/null 2> /dev/null || cp .env.example .env",
-		"idev": "npm i && npm run dotenv && node ace migration:run && npm run dev",
 		"indocker-root": "docker exec -it -u 0 concord-api",
 		"indocker": "docker exec -it -u node concord-api",
 		"docs": "npx apidoc -i docs/ -o public/apidoc"

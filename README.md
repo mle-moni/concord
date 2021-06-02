@@ -10,8 +10,6 @@ git clone https://github.com/mle-moni/concord && cd concord
 ### Docker
 ##### running dev server:
 ```bash
-# needed due to bad tricks that I made :clown_face:
-mkdir node_modules
 docker-compose up
 ```
 

@@ -3,5 +3,10 @@
 	"version": "0.0.0",
 	"description": "Concord backend API",
 	"title": "Concord API",
-	"url": "http://localhost:7890"
+	"url": "http://localhost:7890",
+	"order": [
+		"Home",
+		"Auth",
+		"User"
+	]
 }
