@@ -18,7 +18,7 @@ export default class UsersController {
 				rules.unique({ table: 'users', column: 'email' }),
 			]),
 			password: schema.string({ trim: true }, [rules.confirmed()]),
-			username: schema.string({ trim: true }, [rules.maxLength(30)]),
+			username: schema.string({ trim: true }, [rules.maxLength(30), rules.minLength(3)]),
 		})
 		const userDetails = await request.validate({
 			schema: validationSchema,
@@ -46,16 +46,11 @@ export default class UsersController {
 			return response.forbidden(messagesObj.forbidden)
 		}
 		const validationSchema = schema.create({
-			email: schema.string({ trim: true }, [
-				rules.email(),
-				rules.unique({ table: 'users', column: 'email' }),
-			]),
-			username: schema.string({ trim: true }, [rules.maxLength(30)]),
+			username: schema.string({ trim: true }, [rules.maxLength(30), rules.minLength(3)]),
 		})
 		const userDetails = await request.validate({
 			schema: validationSchema,
 		})
-		user.email = userDetails.email
 		user.username = userDetails.username
 		await user.save()
 		response.ok({ user: user.privateData() })

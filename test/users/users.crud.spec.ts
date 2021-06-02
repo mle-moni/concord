@@ -121,25 +121,21 @@ test.group('Users CRUD tests', (group) => {
 			.expect(422)
 	})
 	test(`PUT /users/${auth.id} without sending token`, async () => {
-		await supertest(BASE_URL)
-			.put(`/users/${auth.id}`)
-			.send({ email: 'test@test.fr', username: 'Henry' })
-			.expect(401)
+		await supertest(BASE_URL).put(`/users/${auth.id}`).send({ username: 'Henry' }).expect(401)
 	})
 	test(`PUT /users/${auth.id} sending token`, async (assert) => {
-		const newEmailValue = 'test@test.com'
 		await supertest(BASE_URL)
 			.put(`/users/${auth.id}`)
 			.set('Authorization', `Bearer ${auth.token}`)
-			.send({ email: newEmailValue })
+			.send({})
 			.expect(422)
 		await supertest(BASE_URL)
 			.put(`/users/${auth.id}`)
 			.set('Authorization', `Bearer ${auth.token}`)
-			.send({ email: newEmailValue, username: 'Henry' })
+			.send({ username: 'Henry 2' })
 			.expect(200)
 		const user = await User.findOrFail(auth.id)
-		assert.equal(user.email, newEmailValue)
+		assert.equal(user.username, 'Henry 2')
 	})
 
 	test(`GET /users/:id`, async (assert) => {
