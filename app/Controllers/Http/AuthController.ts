@@ -19,6 +19,6 @@ export default class AuthController {
 	}
 
 	public async me({ auth }: HttpContextContract) {
-		return auth.user?.privateData()
+		return { user: auth.user?.privateData() }
 	}
 }

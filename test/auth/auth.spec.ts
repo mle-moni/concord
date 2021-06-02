@@ -120,8 +120,9 @@ test.group('me', (group) => {
 			.get('/me')
 			.set('Authorization', `Bearer ${token.token}`)
 			.expect(200)
-		assert.equal(body.id, user?.id)
-		assert.equal(body.email, user?.email)
-		assert.equal(body.username, user?.username)
+		const connectedUser = body.user
+		assert.equal(connectedUser.id, user?.id)
+		assert.equal(connectedUser.email, user?.email)
+		assert.equal(connectedUser.username, user?.username)
 	})
 })

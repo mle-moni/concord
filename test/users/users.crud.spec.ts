@@ -15,16 +15,16 @@ test.group('Users simple tests', (group) => {
 	})
 
 	test('GET /users', async (assert) => {
-		const { text } = await supertest(BASE_URL).get('/users').expect(200)
-		assert.equal(text, '[]')
+		const { body } = await supertest(BASE_URL).get('/users').expect(200)
+		assert.equal(body?.users?.length, 0)
 	})
 
 	test('GET /users (len = 2)', async (assert) => {
 		await User.create({ email: 'bob@bob.fr', password: 'test', username: 'bob' })
 		await User.create({ email: 'rat@rat.fr', password: 'test', username: 'Rat' })
 		const { body } = await supertest(BASE_URL).get('/users').expect(200)
-		assert.equal(body.length, 2)
-		for (let usr of body) {
+		assert.equal(body.users.length, 2)
+		for (let usr of body.users) {
 			assert.notExists(usr.email)
 			assert.exists(usr.id)
 			assert.exists(usr.username)

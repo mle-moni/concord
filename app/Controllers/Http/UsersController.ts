@@ -8,7 +8,7 @@ import { getGlobals } from 'App/Helpers/Globals'
 export default class UsersController {
 	public async index() {
 		const users = await User.all()
-		return users.map((user) => user.publicData())
+		return { users: users.map((user) => user.publicData()) }
 	}
 
 	public async store({ request, response, auth }: HttpContextContract) {
