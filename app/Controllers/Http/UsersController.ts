@@ -58,7 +58,7 @@ export default class UsersController {
 		user.email = userDetails.email
 		user.username = userDetails.username
 		await user.save()
-		response.ok(user)
+		response.ok({ user: user.privateData() })
 	}
 
 	public async destroy({ response, params, auth }: HttpContextContract) {

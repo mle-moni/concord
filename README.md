@@ -10,17 +10,25 @@ git clone https://github.com/mle-moni/concord && cd concord
 ### Docker
 ##### running dev server:
 ```bash
-docker-compose up 
+# needed due to bad tricks that I made :clown_face:
+mkdir node_modules
+docker-compose up
 ```
 
 ##### get root shell to container
 ```bash
-docker exec -it -u 0 concord-api /bin/sh
+npm run indocker-root /bin/sh
 ```
 
 ##### run tests inside container
 ```bash
-docker exec -it -u 0 concord-api npm run tests
+npm run indocker npm run tests
+```
+
+##### generate docs
+```bash
+npm run indocker npm run docs
+# then it's available at http://localhost:7890/apidoc
 ```
 
 ### Manual install

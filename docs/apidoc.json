@@ -1,0 +1,7 @@
+{
+	"name": "concord-backend",
+	"version": "0.0.0",
+	"description": "Concord backend API",
+	"title": "Concord API",
+	"url": "http://localhost:7890"
+}
