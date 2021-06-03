@@ -24,12 +24,19 @@ Route.get('/', async () => {
 	return { concord: 'Discord like, self hosted solution' }
 })
 
-// login/logout
+// auth related routes
 Route.group(() => {
 	Route.post('/login', 'AuthController.login')
 	Route.post('/logout', 'AuthController.logout').middleware('auth')
 	Route.get('/me', 'AuthController.me').middleware('auth')
 })
+
+// profile related routes
+Route.group(() => {
+	Route.post('change-password', 'ProfilesController.changePassword')
+})
+	.prefix('profile')
+	.middleware('auth')
 
 Route.resource('/users', 'UsersController').apiOnly().middleware({
 	update: 'auth',

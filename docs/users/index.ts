@@ -6,10 +6,12 @@
  * @apiSuccess {UserPublicData[]} users Array of users.
  * @apiSuccessExample {json} 200 (example)
  *		HTTP/1.1 200 OK
-		[
-			{
-				"id": 1,
-				"username": "test"
-			}
-		]
+		{
+			"users": [
+				{
+					"id": 1,
+					"username": "test"
+				}
+			]
+		}
  */
