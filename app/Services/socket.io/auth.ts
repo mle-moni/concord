@@ -13,7 +13,7 @@ async function authenticate(socket: Socket, token: string): Promise<void> {
 	}
 	try {
 		const userId = await checkToken(token)
-		setSocketData(socket.id, { userId })
+		setSocketData(socket.id, { userId, conferenceName: undefined })
 		socket.join('connected')
 		socket.emit('auth', 'success')
 	} catch (error) {
