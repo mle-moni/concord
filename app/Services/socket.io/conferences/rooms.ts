@@ -58,9 +58,7 @@ function joinRoom(roomName: string, socket: Socket) {
 	socket.join(roomName)
 	socket.emit('conferences/getRoomUsers', getRoomUsers(room))
 	room.add(socket.id)
-	if (DEBUG) {
-		logRoomSize(roomName, room)
-	}
+	if (DEBUG) logRoomSize(roomName, room)
 }
 
 function partRoom(roomName: string, socket: Socket) {
@@ -69,11 +67,9 @@ function partRoom(roomName: string, socket: Socket) {
 		room.delete(socket.id)
 		socket.to(roomName).emit('conferences/userGone', socket.id)
 	}
-	if (DEBUG) {
-		logRoomSize(roomName, room)
-	}
+	if (DEBUG) logRoomSize(roomName, room)
 	if (room.size === 0) {
-		console.log(`deleting ${roomName}`)
+		if (DEBUG) console.log(`deleting ${roomName}`)
 		deleteRoom(roomName)
 	}
 }
