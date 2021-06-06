@@ -2,6 +2,10 @@ import Redis from '@ioc:Adonis/Addons/Redis'
 import { createHash } from 'crypto'
 import { safeEqual } from '@poppinss/utils/build/helpers'
 
+function compatibleAtob(str: string) {
+	return Buffer.from(str, 'base64').toString('binary')
+}
+
 function generateHash(token: string) {
 	return createHash('sha256').update(token).digest('hex')
 }
@@ -12,7 +16,7 @@ function parseToken(token: string) {
 		throw new Error('E_INVALID_API_TOKEN')
 	}
 	return {
-		tokenId: atob(parts[0]),
+		tokenId: compatibleAtob(parts[0]),
 		tokenHash: generateHash(parts[1]),
 	}
 }
