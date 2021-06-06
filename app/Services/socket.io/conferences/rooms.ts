@@ -1,3 +1,4 @@
+import { UserPublicData } from 'App/Helpers/types'
 import { Socket } from 'socket.io'
 import { getSocketData, setSocketData } from '../state'
 
@@ -36,9 +37,11 @@ function isInRoom(room: Set<string>, socket: Socket) {
 }
 
 function getRoomUsers(room: Set<string>) {
-	const arr: string[] = []
+	const arr: { socketId: string; user: UserPublicData }[] = []
 	for (let socketId of room) {
-		arr.push(socketId)
+		const data = getSocketData(socketId)
+		if (!data) continue
+		arr.push({ socketId, user: data.user })
 	}
 	return arr
 }
@@ -48,11 +51,14 @@ function joinRoom(roomName: string, socket: Socket) {
 		socket.emit('error', '400', { message: 'roomName too short' })
 		return
 	}
+	const socketData = getSocketData(socket.id)!
+	socket
+		.to(roomName)
+		.emit('conferences/setUserData', { socketId: socket.id, user: socketData.user })
 	const room = getRoomData(roomName)
 	if (isInRoom(room, socket)) {
 		return
 	}
-	const socketData = getSocketData(socket.id)!
 	socketData.conferenceName = roomName
 	setSocketData(socket.id, socketData)
 	socket.join(roomName)

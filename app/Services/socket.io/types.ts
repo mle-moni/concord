@@ -1,5 +1,7 @@
+import { UserPublicData } from 'App/Helpers/types'
+
 interface SocketData {
-	userId: number
+	user: UserPublicData
 	conferenceName: string | undefined
 }
 
