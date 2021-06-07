@@ -1,18 +1,21 @@
-interface SocketData {
-	userId: number
-}
+import { SocketData } from './types'
+
 const socketsData = new Map<string, SocketData>()
 
-function getSocketData(key: string) {
-	return socketsData.get(key)
+function getSocketData(socketId: string) {
+	return socketsData.get(socketId)
 }
 
-function setSocketData(key: string, val: SocketData) {
-	socketsData.set(key, val)
+function setSocketData(socketId: string, val: SocketData) {
+	socketsData.set(socketId, val)
 }
 
-function delSocketData(key: string) {
-	return socketsData.delete(key)
+function delSocketData(socketId: string) {
+	return socketsData.delete(socketId)
 }
 
-export { getSocketData, setSocketData, delSocketData }
+function isAuthenticated(socketId: string) {
+	return !!getSocketData(socketId)
+}
+
+export { getSocketData, setSocketData, delSocketData, isAuthenticated }
